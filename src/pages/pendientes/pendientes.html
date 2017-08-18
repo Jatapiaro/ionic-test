@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Home</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+    <ion-card *ngFor="let lista of _listaDeseos.listas | pendientes ; let i=index;">
+
+        <ion-item color="dark" (click)="verDetalle(lista, i)">
+          <h2>{{lista.nombre}}</h2>
+          <ion-note item-right>
+            {{lista.items.length}}
+          </ion-note>
+        </ion-item>
+        <ion-list>
+            <ion-item *ngFor="let deseo of lista.items | slice:0:2 " (click)="verDetalle(lista, i)">
+                <ion-icon item-left *ngIf="!deseo.completado" ios="ios-square-outline" md="md-square-outline"></ion-icon>
+                <ion-icon item-left *ngIf="deseo.completado" ios="ios-checkbox-outline" md="md-checkbox-outline"></ion-icon>
+                <h2 [class.tachado]='deseo.completado'>{{deseo.nombre}}</h2>
+            </ion-item>
+        </ion-list>
+
+        <ion-item class="text-center">
+          <ion-icon color="primary" *ngIf="lista.items.length > 2" ios="ios-arrow-dropdown" md="md-arrow-dropdown">
+          </ion-icon>
+        </ion-item>
+
+    </ion-card>
+
+    <ion-fab right bottom>
+      <button (click)='irAgregar()'  ion-fab color="primary"><ion-icon ios="ios-add" md="md-add"></ion-icon></button>
+    </ion-fab>
+
+</ion-content>
